@@ -27,4 +27,20 @@ public abstract class Evento {
 
         return contador;
     }
+
+    public void compraIngresso(int valor) {
+        this.ingressos[quantidadeIngresso] = null;
+    }
+
+    public Object[] expande(Object[] array){
+        Object[] aux = new Object[array.length + 1];
+
+        for (int i = 0; i < array.length; i++) {
+            aux[i] = array[i];
+        }
+
+        array = aux;
+
+        return array;
+    }
 }
