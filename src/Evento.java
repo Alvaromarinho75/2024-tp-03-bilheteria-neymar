@@ -32,7 +32,7 @@ public abstract class Evento {
         this.ingressos[quantidadeIngresso] = null;
     }
 
-    public Object[] expande(Object[] array){
+    public static Object[] expande(Object[] array){
         Object[] aux = new Object[array.length + 1];
 
         for (int i = 0; i < array.length; i++) {
