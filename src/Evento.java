@@ -18,6 +18,10 @@ public abstract class Evento {
         this.ingressos = new Ingresso[maxIngressos];
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public int dispIngresso() {
         int contador = 0;
 

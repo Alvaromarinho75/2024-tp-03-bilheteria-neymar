@@ -1,5 +1,4 @@
 import jdk.jfr.internal.EventWriterMethod;
-
 import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,12 +45,16 @@ public class Main {
                         if(entradaL == null) return true;
                         if (!entradaL.isEmpty()) {
 
-                            String entradaP = JOptionPane.showInputDialog("Qual sera o preco dos ingressos?");
+                            String entradaP = JOptionPane.showInputDialog("Qual sera o preco dos ingressos? (x.xx)");
 
                             if(entradaP == null) return true;
                             if(!entradaP.isEmpty()) {
-                                precoAux = Double.parseDouble(entradaP);
-
+                                try {
+                                    precoAux = Double.parseDouble(entradaP);
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Formato de preco invalido!");
+                                    break;
+                                }
                                 switch(escolhaT){
                                     case 0:
                                         novoEvento = new Filme(entradaN, dataAux, entradaL, precoAux);
@@ -80,7 +83,14 @@ public class Main {
                 break;
 
             case 1:
-                // a ser implementado
+                String[] nomesEventos = new String[eventos.length];
+
+                for(int i = 0; i < eventos.length; i++){
+                    nomesEventos[i] = eventos[i].getNome();
+                }
+
+                int escolhaE = JOptionPane.showOptionDialog(null, "Qual evento?", "NJ",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, nomesEventos, nomesEventos[0]);
             break;
 
             case 2:
@@ -121,7 +131,12 @@ public class Main {
 
     public static void main(String[] args) {
         boolean sair = false;
-
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            eventos[1] = new Filme("O principe que nao virou rei", formato.parse("12/12/2026"), "Cinemas no mundo todo", 25.00);
+        } catch (ParseException e){
+            return;
+        }
         JOptionPane.showMessageDialog(null, "Seja bem-vindo a bilheteria NJ!");
 
         while(!sair){
